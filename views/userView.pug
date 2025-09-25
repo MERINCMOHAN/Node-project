@@ -1,0 +1,21 @@
+doctype html
+html
+  head
+    title Users List
+  body
+    h1 User List
+    if Users && Users.length
+      table(border="1" cellpadding="8" cellspacing="0")
+        thead
+          tr
+            th Name
+            th Email
+            th Created At
+        tbody
+          each user in Users
+            tr
+              td #{user.name}
+              td #{user.email}
+              td #{user.createdAt ? user.createdAt.toDateString() : ''}
+    else
+      p No Users found in the list.
