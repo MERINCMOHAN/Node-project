@@ -3,6 +3,7 @@ const errorHandler = require("./middleware/errorHandler");
 const connectDb = require("./config/dbConnection");
 const User = require("./models/userModels");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 const app = express();
 require("dotenv").config();
 connectDb();
@@ -58,10 +59,11 @@ app.post('/login', async(req, res) => {
             // console.log("matched or not", isMatch);
         if (isMatch) {
             // //token
-            // let token = await userEmail.generateAuthToken()
-            //     //cookies
-            // res.cookie('jwt', token, { expires: new Date(Date.now() + 60000), httpOnly: true })
-            res.render('users', { User });
+            let token = await user.generateAuthToken()
+            console.log("token", token)
+                //cookies
+            res.cookie('jwt', token, { expires: new Date(Date.now() + 60000), httpOnly: true })
+            res.redirect("/userlist");
         } else {
             res.send('ERROR');
             console.log("error");
