@@ -65,7 +65,8 @@ app.post('/login', async(req, res) => {
             res.cookie('jwt', token, { expires: new Date(Date.now() + 60000), httpOnly: true })
             res.redirect("/userlist");
         } else {
-            res.send('ERROR');
+            res.send('User name is invalid');
+            res.redirect("/login");
             console.log("error");
         }
     } catch (error) {
